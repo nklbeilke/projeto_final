@@ -10,75 +10,137 @@
 </head>
 <body>
 
-
 <div class="topbar">
-    <span> Frete grátis acima de R$ 149 | Assinatura Calopsite <strong>10% OFF agora</strong></span>
+    <span>Frete grátis acima de R$ 149 | Assinatura Calopsite <strong>10% OFF agora</strong></span>
 </div>
-
 
 <header class="header">
     <div class="header-inner">
         <a href="#" class="logo-link">
             <img src="logo.png" alt="Calopsite" class="logo">
         </a>
-
         <div class="search-bar">
             <span class="search-icon">🔍</span>
             <input type="text" placeholder="O que seu pet precisa?">
             <button class="search-btn">Buscar</button>
         </div>
-
         <div class="header-actions">
-            <a href="#" class="action-btn">📞</a>
-            <a href="#" class="action-btn">❤️</a>
-            <a href="#" class="action-btn cart-btn">🛒 <span class="cart-count">0</span></a>
+            <a href="#" class="action-btn">☎️</a>
+            <a href="#" class="action-btn">💓</a>
+            <a href="#" class="action-btn cart-btn">🛒 <span class="cart-count">1</span></a>
             <a href="#" class="btn-login">Entrar / Cadastrar</a>
         </div>
     </div>
 </header>
 
-<!-- NAV -->
 <nav class="nav">
     <div class="nav-inner">
-        <button class="nav-item" onclick="clicou('Cachorro')">🐕 Cachorro</button>
-        <button class="nav-item" onclick="clicou('Gato')">🐈 Gato</button>
-        <button class="nav-item" onclick="clicou('Pássaro')">🦜 Pássaro</button>
-        <button class="nav-item" onclick="clicou('Peixe')">🐠 Peixe</button>
-        <button class="nav-item" onclick="clicou('Outros Pets')">🐹 Outros Pets</button>
-        <button class="nav-item" onclick="clicou('Casa e Jardim')">🪴 Casa e Jardim</button>
-        <button class="nav-item promo" onclick="clicou('Promoções')">🏷️ Promoções</button>
-        <button class="nav-item" onclick="clicou('Serviços')">✂️ Serviços</button>
-        <button class="nav-item clube" onclick="clicou('Clube Calopsite')">⭐ Clube Calopsite</button>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🐕 Cachorro</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
+                <button class="dropdown-item">Petiscos e Ossos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Tapetes, Fraldas e Banheiros <span class="arrow">›</span></button>
+                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
+                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Coleiras, Guias e Peitorais <span class="arrow">›</span></button>
+                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
+                <button class="dropdown-item">Camas e Cobertores <span class="arrow">›</span></button>
+                <button class="dropdown-item">Casas e Tocas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Acessórios de Alimentação <span class="arrow">›</span></button>
+                <button class="dropdown-item">Acessórios de Transporte <span class="arrow">›</span></button>
+                <button class="dropdown-item">Roupas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Adestramento e Comportamento <span class="arrow">›</span></button>
+                <button class="dropdown-item">Raças <span class="arrow">›</span></button>
+                <button class="dropdown-item">Marcas <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🐈 Gato</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
+                <button class="dropdown-item">Petiscos e Snacks <span class="arrow">›</span></button>
+                <button class="dropdown-item">Areia e Caixa de Areia <span class="arrow">›</span></button>
+                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
+                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Arranhadores <span class="arrow">›</span></button>
+                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
+                <button class="dropdown-item">Camas e Cobertores <span class="arrow">›</span></button>
+                <button class="dropdown-item">Casas e Tocas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Coleiras e Guias <span class="arrow">›</span></button>
+                <button class="dropdown-item">Acessórios de Transporte <span class="arrow">›</span></button>
+                <button class="dropdown-item">Roupas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Marcas <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🦜 Pássaro</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Ração e Sementes <span class="arrow">›</span></button>
+                <button class="dropdown-item">Petiscos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Gaiolas e Viveiros <span class="arrow">›</span></button>
+                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Poleiros e Acessórios <span class="arrow">›</span></button>
+                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
+                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
+                <button class="dropdown-item">Comedouros e Bebedouros <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🐠 Peixe</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
+                <button class="dropdown-item">Aquários e Peças <span class="arrow">›</span></button>
+                <button class="dropdown-item">Filtros e Bombas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Iluminação <span class="arrow">›</span></button>
+                <button class="dropdown-item">Decoração <span class="arrow">›</span></button>
+                <button class="dropdown-item">Tratamento de Água <span class="arrow">›</span></button>
+                <button class="dropdown-item">Plantas Aquáticas <span class="arrow">›</span></button>
+                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🐹 Outros Pets</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Roedores <span class="arrow">›</span></button>
+                <button class="dropdown-item">Répteis <span class="arrow">›</span></button>
+                <button class="dropdown-item">Coelhos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
+                <button class="dropdown-item">Gaiolas e Terrários <span class="arrow">›</span></button>
+                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
+                <button class="dropdown-item">Acessórios <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item">🪴 Casa e Jardim</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Produtos de Limpeza <span class="arrow">›</span></button>
+                <button class="dropdown-item">Repelentes <span class="arrow">›</span></button>
+                <button class="dropdown-item">Jardim Pet <span class="arrow">›</span></button>
+                <button class="dropdown-item">Cerca Elétrica <span class="arrow">›</span></button>
+                <button class="dropdown-item">Câmeras e Monitoramento <span class="arrow">›</span></button>
+            </div>
+        </div>
+
+        <div class="nav-item-wrapper">
+            <button class="nav-item promo">🏷️ Promoções</button>
+            <div class="dropdown">
+                <button class="dropdown-item">Ofertas do Dia <span class="arrow">›</span></button>
+                <button class="dropdown-item">Outlet <span class="arrow">›</span></button>
+                <button class="dropdown-item">Kits com Desconto <span class="arrow">›</span></button>
+                <button class="dropdown-item">Leve Mais, Pague Menos <span class="arrow">›</span></button>
+            </div>
+        </div>
+
     </div>
 </nav>
 
-<!-- SERVICES Vou arrumar mais pra frente/colocar -->
-<section class="services-strip">
-    <div class="services-inner">
-        <div class="service-card" onclick="clicou('Veterinário')">
-            <span class="service-icon">🩺</span>
-            <span>Veterinário</span>
-        </div>
-        <div class="service-card" onclick="clicou('Banho e Tosa')">
-            <span class="service-icon">🛁</span>
-            <span>Banho & Tosa</span>
-        </div>
-        <div class="service-card" onclick="clicou('Adestramento')">
-            <span class="service-icon">🎓</span>
-            <span>Adestramento</span>
-        </div>
-        <div class="service-card" onclick="clicou('Adote um Pet')">
-            <span class="service-icon">🏠</span>
-            <span>Adote um Pet</span>
-        </div>
-        <div class="service-card" onclick="clicou('Plano de Saúde')">
-            <span class="service-icon">💊</span>
-            <span>Plano de Saúde</span>
-        </div>
-    </div>
-</section>
-
-<!-- preciso arrumar o CAROUSEL ainda BRUNO -->
 <section class="banner-section">
     <div class="banner-track" id="bannerTrack">
 
@@ -86,7 +148,7 @@
             <div class="banner-content">
                 <h2>Brinquedos</h2>
                 <p>Somos a geração que ama <strong>brincar junto.</strong></p>
-                <div class="banner-badge">a partir de<br><big>R$ 9,99</big></div>
+                <div class="banner-badge">a partir de<br><big>R$ 5,99</big></div>
                 <button class="banner-btn" onclick="clicou('Brinquedos')">Aproveite</button>
             </div>
             <div class="banner-img-placeholder">🐶🧸</div>
@@ -113,10 +175,8 @@
         </div>
 
     </div>
-
     <button class="banner-prev" onclick="moveBanner(-1)">&#8249;</button>
     <button class="banner-next" onclick="moveBanner(1)">&#8250;</button>
-
     <div class="banner-dots">
         <span class="dot active" onclick="goToBanner(0)"></span>
         <span class="dot" onclick="goToBanner(1)"></span>
@@ -124,7 +184,6 @@
     </div>
 </section>
 
-<!-- CATEGORIAS PRECISA SER ARRUMADA -->
 <section class="categories-section">
     <div class="section-inner">
         <h2 class="section-title">Compre por categoria</h2>
