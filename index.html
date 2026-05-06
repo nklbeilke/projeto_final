@@ -10,211 +10,323 @@
 </head>
 <body>
 
-<div class="topbar">
-    <span>Frete grátis acima de R$ 149 | Assinatura Calopsite <strong>10% OFF agora</strong></span>
+<!-- BANNERS -->
+<div id="main-banner" class="top-banner">
+    <span class="icon">🚚</span>
+    <strong>FRETE GRÁTIS</strong>&nbsp;para todo o Brasil
+    <span class="icon">🚚</span>
 </div>
 
-<header class="header">
-    <div class="header-inner">
-        <a href="#" class="logo-link">
-            <img src="logo.png" alt="Calopsite" class="logo">
-        </a>
-        <div class="search-bar">
+<div id="checkout-banner" class="top-banner" style="display:none">
+    <span class="icon">🚚</span>
+    <strong>FRETE GRÁTIS</strong>&nbsp;para todo o Brasil
+    <span class="icon">🚚</span>
+</div>
+
+<!-- HEADER PRINCIPAL -->
+<header id="main-header">
+    <div class="logo" onclick="navigateTo('home')">
+        <img src="logo.png" alt="Calopsite">
+    </div>
+    <div class="search-wrap">
+        <div class="search-input-wrapper">
             <span class="search-icon">🔍</span>
             <input type="text" placeholder="O que seu pet precisa?">
-            <button class="search-btn">Buscar</button>
         </div>
-        <div class="header-actions">
-            <a href="#" class="action-btn">☎️</a>
-            <a href="#" class="action-btn">💓</a>
-            <a href="#" class="action-btn cart-btn">🛒 <span class="cart-count">1</span></a>
-            <a href="#" class="btn-login">Entrar / Cadastrar</a>
-        </div>
+        <button class="btn-buscar">Buscar</button>
+    </div>
+    <div class="header-actions">
+        <button class="icon-btn" onclick="navigateTo('contact')">📞</button>
+        <button class="icon-btn" onclick="showCartPanel()">
+            🛒
+            <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+        </button>
+        <button class="btn-entrar" onclick="navigateTo('login')">Entrar/Cadastrar</button>
     </div>
 </header>
 
-<nav class="nav">
-    <div class="nav-inner">
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🐕 Cachorro</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
-                <button class="dropdown-item">Petiscos e Ossos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Tapetes, Fraldas e Banheiros <span class="arrow">›</span></button>
-                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
-                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Coleiras, Guias e Peitorais <span class="arrow">›</span></button>
-                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
-                <button class="dropdown-item">Camas e Cobertores <span class="arrow">›</span></button>
-                <button class="dropdown-item">Casas e Tocas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Acessórios de Alimentação <span class="arrow">›</span></button>
-                <button class="dropdown-item">Acessórios de Transporte <span class="arrow">›</span></button>
-                <button class="dropdown-item">Roupas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Adestramento e Comportamento <span class="arrow">›</span></button>
-                <button class="dropdown-item">Raças <span class="arrow">›</span></button>
-                <button class="dropdown-item">Marcas <span class="arrow">›</span></button>
-            </div>
+<!-- NAVEGAÇÃO PRINCIPAL -->
+<nav id="main-nav">
+    <div class="nav-item">
+        <a onclick="navigateTo('listing','cachorro','racao')">🐕 Cachorro</a>
+        <div class="dropdown-menu">
+            <a onclick="navigateTo('listing','cachorro','racao')">Ração <span>›</span></a>
+            <a onclick="navigateTo('listing','cachorro','petiscos')">Petiscos e Ossos <span>›</span></a>
+            <a onclick="navigateTo('listing','cachorro','brinquedos')">Brinquedos <span>›</span></a>
+            <a onclick="navigateTo('listing','cachorro','coleiras')">Coleiras, Guias, Peitorais <span>›</span></a>
+            <a onclick="navigateTo('listing','cachorro','limpeza')">Limpeza <span>›</span></a>
+            <a onclick="navigateTo('listing','cachorro','camas')">Camas e Cobertores <span>›</span></a>
         </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🐈 Gato</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
-                <button class="dropdown-item">Petiscos e Snacks <span class="arrow">›</span></button>
-                <button class="dropdown-item">Areia e Caixa de Areia <span class="arrow">›</span></button>
-                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
-                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Arranhadores <span class="arrow">›</span></button>
-                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
-                <button class="dropdown-item">Camas e Cobertores <span class="arrow">›</span></button>
-                <button class="dropdown-item">Casas e Tocas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Coleiras e Guias <span class="arrow">›</span></button>
-                <button class="dropdown-item">Acessórios de Transporte <span class="arrow">›</span></button>
-                <button class="dropdown-item">Roupas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Marcas <span class="arrow">›</span></button>
-            </div>
+    </div>
+    <div class="nav-item">
+        <a onclick="navigateTo('listing','gato','racao')">🐈 Gato</a>
+        <div class="dropdown-menu">
+            <a onclick="navigateTo('listing','gato','racao')">Ração <span>›</span></a>
+            <a onclick="navigateTo('listing','gato','brinquedos')">Brinquedos <span>›</span></a>
         </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🦜 Pássaro</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Ração e Sementes <span class="arrow">›</span></button>
-                <button class="dropdown-item">Petiscos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Gaiolas e Viveiros <span class="arrow">›</span></button>
-                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Poleiros e Acessórios <span class="arrow">›</span></button>
-                <button class="dropdown-item">Beleza e Limpeza <span class="arrow">›</span></button>
-                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
-                <button class="dropdown-item">Comedouros e Bebedouros <span class="arrow">›</span></button>
-            </div>
+    </div>
+    <div class="nav-item">
+        <a onclick="navigateTo('listing','aves','racao')">🦜 Aves</a>
+        <div class="dropdown-menu">
+            <a onclick="navigateTo('listing','aves','racao')">Ração e Sementes <span>›</span></a>
+            <a onclick="navigateTo('listing','aves','brinquedos')">Brinquedos <span>›</span></a>
         </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🐠 Peixe</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
-                <button class="dropdown-item">Aquários e Peças <span class="arrow">›</span></button>
-                <button class="dropdown-item">Filtros e Bombas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Iluminação <span class="arrow">›</span></button>
-                <button class="dropdown-item">Decoração <span class="arrow">›</span></button>
-                <button class="dropdown-item">Tratamento de Água <span class="arrow">›</span></button>
-                <button class="dropdown-item">Plantas Aquáticas <span class="arrow">›</span></button>
-                <button class="dropdown-item">Farmácia <span class="arrow">›</span></button>
-            </div>
+    </div>
+    <div class="nav-item">
+        <a href="#">🐹 Outros Pets</a>
+        <div class="dropdown-menu">
+            <a href="#">Roedores <span>›</span></a>
+            <a href="#">Répteis <span>›</span></a>
+            <a href="#">Coelhos <span>›</span></a>
         </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🐹 Outros Pets</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Roedores <span class="arrow">›</span></button>
-                <button class="dropdown-item">Répteis <span class="arrow">›</span></button>
-                <button class="dropdown-item">Coelhos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Ração <span class="arrow">›</span></button>
-                <button class="dropdown-item">Gaiolas e Terrários <span class="arrow">›</span></button>
-                <button class="dropdown-item">Brinquedos <span class="arrow">›</span></button>
-                <button class="dropdown-item">Acessórios <span class="arrow">›</span></button>
-            </div>
-        </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item">🪴 Casa e Jardim</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Produtos de Limpeza <span class="arrow">›</span></button>
-                <button class="dropdown-item">Repelentes <span class="arrow">›</span></button>
-                <button class="dropdown-item">Jardim Pet <span class="arrow">›</span></button>
-                <button class="dropdown-item">Cerca Elétrica <span class="arrow">›</span></button>
-                <button class="dropdown-item">Câmeras e Monitoramento <span class="arrow">›</span></button>
-            </div>
-        </div>
-
-        <div class="nav-item-wrapper">
-            <button class="nav-item promo">🏷️ Promoções</button>
-            <div class="dropdown">
-                <button class="dropdown-item">Ofertas do Dia <span class="arrow">›</span></button>
-                <button class="dropdown-item">Outlet <span class="arrow">›</span></button>
-                <button class="dropdown-item">Kits com Desconto <span class="arrow">›</span></button>
-                <button class="dropdown-item">Leve Mais, Pague Menos <span class="arrow">›</span></button>
-            </div>
-        </div>
-
+    </div>
+    <div class="nav-item">
+        <a class="promocoes" onclick="navigateTo('listing','cachorro','brinquedos')">🏷️ Promoções</a>
     </div>
 </nav>
 
-<section class="banner-section">
-    <div class="banner-track" id="bannerTrack">
-
-        <div class="banner-slide active" style="background: linear-gradient(135deg, #1a4fa0 50%, #f5e9d0 50%);">
-            <div class="banner-content">
-                <h2>Brinquedos</h2>
-                <p>Somos a geração que ama <strong>brincar junto.</strong></p>
-                <div class="banner-badge">a partir de<br><big>R$ 5,99</big></div>
-                <button class="banner-btn" onclick="clicou('Brinquedos')">Aproveite</button>
-            </div>
-            <div class="banner-img-placeholder">🐶🧸</div>
-        </div>
-
-        <div class="banner-slide" style="background: linear-gradient(135deg, #0f7a5a 50%, #fff4e0 50%);">
-            <div class="banner-content">
-                <h2>Ração Premium</h2>
-                <p>Nutrição de qualidade para o seu <strong>melhor amigo.</strong></p>
-                <div class="banner-badge">até<br><big>30% OFF</big></div>
-                <button class="banner-btn" onclick="clicou('Ração')">Ver ofertas</button>
-            </div>
-            <div class="banner-img-placeholder">🐱🥣</div>
-        </div>
-
-        <div class="banner-slide" style="background: linear-gradient(135deg, #7b2d8b 50%, #fce8ff 50%);">
-            <div class="banner-content">
-                <h2>Clube Calopsite</h2>
-                <p>Assine e economize <strong>todo mês.</strong></p>
-                <div class="banner-badge">10% OFF<br><big>sempre</big></div>
-                <button class="banner-btn" onclick="clicou('Clube Calopsite')">Assinar agora</button>
-            </div>
-            <div class="banner-img-placeholder">⭐🐾</div>
-        </div>
-
+<!-- HEADER CHECKOUT (oculto por padrão) -->
+<div id="checkout-header" class="checkout-header" style="display:none">
+    <div class="logo-wrap" onclick="navigateTo('home')">
+        <img src="logo.png" alt="Calopsite">
+        <span class="brand">CALOPSITE</span>
     </div>
-    <button class="banner-prev" onclick="moveBanner(-1)">&#8249;</button>
-    <button class="banner-next" onclick="moveBanner(1)">&#8250;</button>
-    <div class="banner-dots">
-        <span class="dot active" onclick="goToBanner(0)"></span>
-        <span class="dot" onclick="goToBanner(1)"></span>
-        <span class="dot" onclick="goToBanner(2)"></span>
-    </div>
-</section>
+    <div class="secure-env">🔒 Ambiente Seguro</div>
+</div>
 
-<section class="categories-section">
-    <div class="section-inner">
-        <h2 class="section-title">Compre por categoria</h2>
-        <div class="categories-grid">
-            <div class="cat-card" onclick="clicou('Cachorro')">
-                <div class="cat-icon">🐕</div>
-                <span>Cachorro</span>
+<!-- PÁGINAS PRINCIPAIS (dentro do main) -->
+<main>
+
+    <!-- HOME -->
+    <div id="page-home" class="page active">
+        <div class="carousel">
+            <div class="carousel-slides">
+                <!-- Slide 1 -->
+                <div class="carousel-slide slide-blue">
+                    <div class="slide-bg-beige"></div>
+                    <div class="slide-content">
+                        <h2>Brinquedos</h2>
+                        <p>Somos a geração que ama <strong>brincar junto.</strong></p>
+                        <div class="price-badge">
+                            <span>a partir de</span>
+                            R$ 5,99
+                        </div>
+                        <button class="btn-slide" onclick="navigateTo('listing','cachorro','brinquedos')">Aproveite</button>
+                    </div>
+                    <div class="slide-images">
+                        <span class="pet-emoji">🐶</span>
+                        <span class="pet-emoji">🧸</span>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide slide-green">
+                    <div class="slide-bg-beige"></div>
+                    <div class="slide-content">
+                        <h2>Ração Premium</h2>
+                        <p>Nutrição de qualidade para o seu <strong>melhor amigo.</strong></p>
+                        <div class="discount-badge">
+                            30%
+                            <span>OFF</span>
+                        </div>
+                        <button class="btn-slide" onclick="navigateTo('listing','cachorro','racao')">Ver ofertas</button>
+                    </div>
+                    <div class="slide-images">
+                        <span class="pet-emoji">🐱</span>
+                        <span class="pet-emoji">🥣</span>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide slide-orange">
+                    <div class="slide-bg-beige"></div>
+                    <div class="slide-content">
+                        <h2>Clube Calopsite</h2>
+                        <p>Assine e economize <strong>todo mês.</strong></p>
+                        <div class="discount-badge">
+                            10%
+                            <span>OFF</span>
+                        </div>
+                        <button class="btn-slide" onclick="navigateTo('home')">Assinar agora</button>
+                    </div>
+                    <div class="slide-images">
+                        <span class="pet-emoji">⭐</span>
+                        <span class="pet-emoji">🐾</span>
+                    </div>
+                </div>
             </div>
-            <div class="cat-card" onclick="clicou('Gato')">
-                <div class="cat-icon">🐈</div>
-                <span>Gato</span>
+            <button class="carousel-btn prev">&#8249;</button>
+            <button class="carousel-btn next">&#8250;</button>
+            <div class="carousel-dots">
+                <button class="dot active"></button>
+                <button class="dot"></button>
+                <button class="dot"></button>
             </div>
-            <div class="cat-card" onclick="clicou('Pássaro')">
-                <div class="cat-icon">🦜</div>
-                <span>Pássaro</span>
+        </div>
+
+        <section class="categories-section">
+            <h2 class="section-title">Compre por categoria</h2>
+            <div class="categories-grid">
+                <div class="cat-card" onclick="navigateTo('listing','cachorro','racao')">
+                    <div class="cat-icon">🐕</div>
+                    <span>Cachorro</span>
+                </div>
+                <div class="cat-card" onclick="navigateTo('listing','gato','racao')">
+                    <div class="cat-icon">🐈</div>
+                    <span>Gato</span>
+                </div>
+                <div class="cat-card" onclick="navigateTo('listing','aves','racao')">
+                    <div class="cat-icon">🦜</div>
+                    <span>Pássaro</span>
+                </div>
+                <div class="cat-card" onclick="navigateTo('home')">
+                    <div class="cat-icon">🐠</div>
+                    <span>Peixe</span>
+                </div>
+                <div class="cat-card" onclick="navigateTo('home')">
+                    <div class="cat-icon">🐹</div>
+                    <span>Outros Pets</span>
+                </div>
+                <div class="cat-card promo-card" onclick="navigateTo('listing','cachorro','brinquedos')">
+                    <div class="cat-icon">🏷️</div>
+                    <span>Promoções</span>
+                </div>
             </div>
-            <div class="cat-card" onclick="clicou('Peixe')">
-                <div class="cat-icon">🐠</div>
-                <span>Peixe</span>
-            </div>
-            <div class="cat-card" onclick="clicou('Outros Pets')">
-                <div class="cat-icon">🐹</div>
-                <span>Outros Pets</span>
-            </div>
-            <div class="cat-card promo-card" onclick="clicou('Promoções')">
-                <div class="cat-icon">🏷️</div>
-                <span>Promoções</span>
+        </section>
+    </div>
+
+    <!-- LISTING (renderizado pelo JS) -->
+    <div id="page-listing" class="page"></div>
+
+    <!-- CARRINHO (renderizado pelo JS) -->
+    <div id="page-cart" class="page"></div>
+
+    <!-- CHECKOUT (renderizado pelo JS) -->
+    <div id="page-checkout" class="page"></div>
+
+    <!-- CONTATO -->
+    <div id="page-contact" class="page">
+        <div class="contact-page">
+            <h2>Precisa de Ajuda? Contate-nos</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-icon">📞</span>
+                    (41) XXXX-XXXX
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">💬</span>
+                    (41) 9 XXXX-XXXX
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">✉️</span>
+                    sac@calopsite.com.br
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">🏪</span>
+                    Rua das Calopsitas, 123 -XXXXX, Curitiba-PR
+                </div>
             </div>
         </div>
     </div>
-</section>
+
+</main>
+
+<!-- LOGIN (fora do main — usa checkout-header) -->
+<div id="page-login" class="page">
+    <div class="auth-body">
+        <div class="auth-logo-big">
+            <img src="logo.png" alt="Calopsite">
+            <span class="brand-name">CALOPSITE</span>
+        </div>
+        <div class="auth-form">
+            <input type="email" placeholder="Insira seu email">
+            <div class="input-pw-wrap">
+                <input type="password" placeholder="Insira sua senha">
+                <button class="eye-btn">👁</button>
+            </div>
+            <div class="forgot-link">Esqueci a Senha</div>
+            <button class="btn-auth">ENTRAR</button>
+            <hr class="auth-divider">
+            <div class="auth-link-row">
+                Novo na Calopsite? <a onclick="navigateTo('register')">Crie sua Conta</a>
+            </div>
+            <p class="auth-terms">
+                Ao acessar você está de acordo com os
+                <a>Termos de Uso e Política de Privacidade</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- CADASTRO (fora do main — usa checkout-header) -->
+<div id="page-register" class="page">
+    <div class="auth-body">
+        <div class="register-card">
+            <div class="register-header">
+                <h3>Crie sua Conta</h3>
+                <div class="person-type">
+                    <label><input type="radio" name="pessoa" checked> Pessoa Física</label>
+                    <label><input type="radio" name="pessoa"> Pessoa Jurídica</label>
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label>Nome e Sobrenome</label>
+                    <input type="text" placeholder="Insira seu Nome e Sobrenome">
+                </div>
+                <div class="form-field">
+                    <label>Email</label>
+                    <input type="email" placeholder="Insira seu Email">
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Celular</label>
+                        <input type="tel" placeholder="Insira seu Celular">
+                    </div>
+                    <div class="form-field">
+                        <label>Telefone (Opcional)</label>
+                        <input type="tel" placeholder="Insira seu Telefone">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>CPF</label>
+                    <input type="text" placeholder="Insira seu CPF">
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Senha</label>
+                        <div class="input-pw-wrap">
+                            <input type="password" placeholder="Insira sua Senha">
+                            <button class="eye-btn">👁</button>
+                        </div>
+                        <div class="pw-hints">
+                            • Mínimo 8 caracteres<br>
+                            • Letras minúsculas e maiúsculas<br>
+                            • Números
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Confirmar Senha</label>
+                        <div class="input-pw-wrap">
+                            <input type="password" placeholder="Confirme sua Senha">
+                            <button class="eye-btn">👁</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="register-footer">
+                <label class="agree-label">
+                    <input type="checkbox">
+                    Concordo com os <a>Termos e Condições</a>
+                </label>
+                <button class="btn-cadastrar">CADASTRAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CARRINHO FLYOUT -->
+<div id="cart-overlay" class="cart-overlay">
+    <div id="cart-panel" class="cart-panel"></div>
+</div>
 
 <script src="script.js"></script>
 </body>
