@@ -305,7 +305,7 @@
                 </button>
             </div>
             <div class="forgot-link">Esqueci a Senha</div>
-            <button class="btn-auth">ENTRAR</button>
+            <button class="btn-auth" onclick="handleLogin()">ENTRAR</button>
             <hr class="auth-divider">
             <div class="auth-link-row">
                 Novo na Calopsite? <a onclick="navigateTo('register')">Crie sua Conta</a>
@@ -332,11 +332,11 @@
             <div class="form-grid">
                 <div class="form-field">
                     <label>Nome e Sobrenome</label>
-                    <input type="text" placeholder="Insira seu Nome e Sobrenome">
+                    <input type="text" id="reg-name" placeholder="Insira seu Nome e Sobrenome">
                 </div>
                 <div class="form-field">
                     <label>Email</label>
-                    <input type="email" placeholder="Insira seu Email">
+                    <input type="email" id="reg-email" placeholder="Insira seu Email">
                 </div>
                 <div class="form-row">
                     <div class="form-field">
@@ -391,7 +391,7 @@
                     <input type="checkbox">
                     Concordo com os <a>Termos e Condições</a>
                 </label>
-                <button class="btn-cadastrar">CADASTRAR</button>
+                <button class="btn-cadastrar" onclick="handleRegister()">CADASTRAR</button>
             </div>
         </div>
     </div>

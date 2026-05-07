@@ -8,7 +8,66 @@ const state = {
   currentSubcategory: null,
   carouselIndex: 0,
   carouselTimer: null,
+  loggedUser: null,
 };
+
+// ===== AUTH HELPERS =====
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('calopsite_users') || '[]'); }
+  catch { return []; }
+}
+function saveUsers(users) {
+  localStorage.setItem('calopsite_users', JSON.stringify(users));
+}
+function getLoggedUser() {
+  try { return JSON.parse(localStorage.getItem('calopsite_logged') || 'null'); }
+  catch { return null; }
+}
+function setLoggedUser(user) {
+  state.loggedUser = user;
+  if (user) localStorage.setItem('calopsite_logged', JSON.stringify(user));
+  else localStorage.removeItem('calopsite_logged');
+  updateAuthButton();
+}
+function updateAuthButton() {
+  const btn = document.querySelector('.btn-entrar');
+  if (!btn) return;
+  const user = state.loggedUser;
+  if (user) {
+    btn.textContent = 'Olá, ' + user.name.split(' ')[0];
+    btn.onclick = showUserMenu;
+  } else {
+    btn.textContent = 'Entrar/Cadastrar';
+    btn.onclick = () => navigateTo('login');
+  }
+}
+function showUserMenu() {
+  const existing = document.getElementById('user-menu-popup');
+  if (existing) { existing.remove(); return; }
+  const menu = document.createElement('div');
+  menu.id = 'user-menu-popup';
+  menu.style.cssText = 'position:fixed;top:80px;right:64px;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.15);z-index:9999;min-width:160px;overflow:hidden;border:1px solid #E8D8C0;';
+  menu.innerHTML = '<div class="user-menu-item" onclick="navigateTo(\'home\');document.getElementById(\'user-menu-popup\').remove()">Minha Conta</div><div class="user-menu-item logout" onclick="doLogout()">Sair</div>';
+  document.body.appendChild(menu);
+  setTimeout(() => document.addEventListener('click', function h(e){ if(!menu.contains(e.target)){menu.remove();document.removeEventListener('click',h);} }), 50);
+}
+function doLogout() {
+  setLoggedUser(null);
+  const m = document.getElementById('user-menu-popup');
+  if (m) m.remove();
+  showToast('Você saiu da conta.');
+  navigateTo('home');
+}
+
+// ===== TOAST =====
+function showToast(msg, isSuccess) {
+  const t = document.createElement('div');
+  t.className = 'toast-notification' + (isSuccess ? ' toast-success' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.classList.add('toast-show'), 10);
+  setTimeout(() => { t.classList.remove('toast-show'); setTimeout(()=>t.remove(), 300); }, 2800);
+}
 
 // ===== SVG ICONS for products =====
 const productIcons = {
@@ -252,7 +311,7 @@ function renderListing(cat, sub) {
   }
 
   const productHTML = prods.map(p => `
-    <div class="product-card" onclick="addToCart(${p.id})">
+    <div class="product-card" onclick="addToCart(${p.id}, this)">
       <div class="prod-icon">${getProductIcon(p)}</div>
       <h4>${p.name}</h4>
       <div class="price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>
@@ -297,7 +356,13 @@ function findProduct(id) {
   return null;
 }
 
-function addToCart(productId) {
+function addToCart(productId, cardEl) {
+  // toggle selected visual
+  if (cardEl) {
+    const wasSelected = cardEl.classList.contains("in-cart");
+    if (wasSelected) { return; }
+    cardEl.classList.add("in-cart");
+  }
   const product = findProduct(productId);
   if (!product) return;
   const existing = state.cart.find(i => i.id === productId);
@@ -307,7 +372,7 @@ function addToCart(productId) {
     state.cart.push({ ...product, qty: 1 });
   }
   updateCartBadge();
-  showCartPanel();
+  showToast('Produto adicionado ao carrinho! 🛒', true);
 }
 
 function removeFromCart(productId) {
@@ -397,7 +462,7 @@ function renderCartSidebar() {
         <span>Subtotal</span>
         <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
       </div>
-      <button class="btn-checkout" onclick="hideCartPanel(); navigateTo('cart')">Ir para o Check-out</button>
+      <button class="btn-checkout" onclick="goToCart()">Ir para o Check-out</button>
       <button class="btn-continue" onclick="hideCartPanel()">Continuar Comprando</button>
     </div>
   `;
@@ -484,7 +549,7 @@ function renderCartPage() {
             <span>Total</span>
             <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
           </div>
-          <button class="btn-fazer-pedido" onclick="navigateTo('checkout')">Fazer Pedido</button>
+          <button class="btn-fazer-pedido" onclick="goToCheckout()">Fazer Pedido</button>
           <button class="btn-mais-produtos" onclick="navigateTo('home')">Escolher mais Produtos</button>
         </div>
       </div>
@@ -498,7 +563,7 @@ function toggleFrequency(id) {
   renderCartPage();
 }
 
-// ===== CHECKOUT PAGE =====
+// ===== CHECKOUT pagina de pagamento  =====
 function renderCheckoutPage() {
   const page = $('#page-checkout');
   if (!page) return;
@@ -619,6 +684,13 @@ function setPayTab(btn, type) {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Restore logged user from localStorage
+  const savedUser = getLoggedUser();
+  if (savedUser) {
+    state.loggedUser = savedUser;
+    updateAuthButton();
+  }
+
   initCarousel();
   updateCartBadge();
 
@@ -634,4 +706,131 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   $('#cart-panel')?.addEventListener('click', (e) => e.stopPropagation());
+
+  // Wire up login button
+  const loginBtn = document.querySelector('#page-login .btn-auth');
+  if (loginBtn) loginBtn.addEventListener('click', handleLogin);
+
+  // Wire up register button
+  const registerBtn = document.querySelector('.btn-cadastrar');
+  if (registerBtn) registerBtn.addEventListener('click', handleRegister);
+
+  // Wire up eye toggle buttons
+  document.querySelectorAll('.eye-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = btn.closest('.input-pw-wrap');
+      if (!wrap) return;
+      const inp = wrap.querySelector('input');
+      if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+  });
+
+  // Cart icon also checks auth
+  const cartIconBtn = document.querySelector('.icon-btn[title="Carrinho"]');
+  if (cartIconBtn) {
+    cartIconBtn.onclick = showCartPanel;
+  }
 });
+// ===== AREA DE FAZER LOGIN=====
+function handleLogin() {
+  const emailEl = document.querySelector('#page-login input[type="email"]');
+  const pwEl = document.querySelector('#page-login input[type="password"]');
+  if (!emailEl || !pwEl) return;
+  const email = emailEl.value.trim();
+  const pw = pwEl.value;
+  if (!email || !pw) { showToast('Preencha email e senha.'); return; }
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.password === pw);
+  if (!user) { showToast('Email ou senha incorretos.'); return; }
+  setLoggedUser(user);
+  showToast('Bem-vindo(a), ' + user.name.split(' ')[0] + '! 🐾', true);
+  if (state._pendingCart) {
+    state._pendingCart = false;
+    navigateTo('cart');
+  } else {
+    navigateTo('home');
+  }
+}
+
+// REGISTRO PARA CRIAR CONTAS =====
+function handleRegister() {
+  const inputs = document.querySelectorAll('#page-register .form-grid input[type="text"], #page-register .form-grid input[type="email"], #page-register .form-grid input[type="tel"], #page-register .form-grid input[type="password"]');
+  const arr = Array.from(inputs);
+  const name = (arr[0]?.value || '').trim();
+  const email = (arr[1]?.value || '').trim();
+  const phone = (arr[2]?.value || '').trim();
+  const cpf = (arr[4]?.value || '').trim();
+  const pw = arr[5]?.value || '';
+  const pw2 = arr[6]?.value || '';
+  const agreed = document.querySelector('#page-register .agree-label input');
+
+  if (!name || !email || !cpf || !pw) { showToast('Preencha todos os campos obrigatórios.'); return; }
+  if (pw.length < 8) { showToast('Senha deve ter no mínimo 8 caracteres.'); return; }
+  if (pw !== pw2) { showToast('As senhas não coincidem.'); return; }
+  if (agreed && !agreed.checked) { showToast('Aceite os Termos e Condições.'); return; }
+
+  const users = getUsers();
+  if (users.find(u => u.email === email)) { showToast('Esse email já está cadastrado.'); return; }
+  const newUser = { name, email, password: pw, cpf, phone };
+  users.push(newUser);
+  saveUsers(users);
+  setLoggedUser(newUser);
+  showToast('Cadastro realizado! Bem-vindo(a) 🎉', true);
+  if (state._pendingCart) {
+    state._pendingCart = false;
+    navigateTo('cart');
+  } else {
+    navigateTo('home');
+  }
+}
+
+// ===== EYE TOGGLE PASSWORD =====
+function togglePw(btn) {
+  const input = btn.previousElementSibling || btn.closest('.input-pw-wrap').querySelector('input');
+  if (!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+// ===== CART AUTH GUARD =====
+function goToCart() {
+  hideCartPanel();
+  if (!state.loggedUser) {
+    state._pendingCart = true;
+    showLoginRequired();
+    return;
+  }
+  navigateTo('cart');
+}
+
+function goToCheckout() {
+  if (!state.loggedUser) {
+    state._pendingCart = true;
+    showLoginRequired();
+    return;
+  }
+  navigateTo('checkout');
+}
+
+function showLoginRequired() {
+  // parte do login
+  const modal = document.createElement('div');
+  modal.id = 'login-required-modal';
+  modal.innerHTML = `
+    <div class="lrm-backdrop" onclick="closeLoginRequired()"></div>
+    <div class="lrm-box">
+      <div class="lrm-logo">🐾</div>
+      <h3>Entre na sua conta</h3>
+      <p>Para acessar o carrinho, faça login ou cadastre-se.</p>
+      <button class="btn-auth lrm-btn" onclick="closeLoginRequired(); navigateTo('login')">Entrar</button>
+      <button class="btn-auth lrm-btn lrm-outline" onclick="closeLoginRequired(); navigateTo('register')">Criar Conta</button>
+      <div class="lrm-cancel" onclick="closeLoginRequired()">Cancelar</div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeLoginRequired() {
+  const m = document.getElementById('login-required-modal');
+  if (m) m.remove();
+  state._pendingCart = false;
+}
